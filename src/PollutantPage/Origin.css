@@ -349,7 +349,7 @@
 .origin-section-container .overlay-text {
     position: absolute;
     left: 360px;
-    top: 444px;
+    top: 455px;
     transform: translate(-180px, -430px);
     color: transparent;
     background: 
@@ -363,11 +363,11 @@
         linear-gradient(
             to bottom, 
             #fff 0%, 
-            #fff var(--gradient-height, 480px), 
-            #000 var(--gradient-height, 480px), 
+            #fff var(--gradient-height, 487px), 
+            #000 var(--gradient-height, 487px), 
             #000 100%
         );
-    background-size: 100% var(--gradient-height, 480px), 100% 100%;
+    background-size: 100% var(--gradient-height, 487px), 100% 100%;
     background-repeat: no-repeat;
     -webkit-background-clip: text;
     background-clip: text;
