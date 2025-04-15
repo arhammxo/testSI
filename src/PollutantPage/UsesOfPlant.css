@@ -1,4 +1,22 @@
-.uses-of-plant-container {
+/* Add small black circle at the end of the bottom border for expanded state */
+.items-content-container .bottom-border-circle {
+    position: absolute;
+    bottom: -2px; /* Slightly lower to center it vertically on the border */
+    left: 140px; /* Position at the end of the 40px bottom border */
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #000;
+}/* Add small black circle at the end of the top border */
+.items-content-container .top-border-circle {
+    position: absolute;
+    top: 18px; /* Slightly higher than the border to center it vertically */
+    left: 86px; /* Position at the end of the 80px top border */
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #000;
+}.uses-of-plant-container {
     width: 100%;
     height: auto;
     position: relative;
@@ -6,13 +24,13 @@
 }
 
 .uses-of-plant-container .uses-of-plant-header {
-    height: 43px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 743px;
-    display: flex;
-    align-items: center;
+    background-color: #fff;
+    height: 57px;
+    position: relative;
+    width: fit-content;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .uses-of-plant-container .uses-of-plant-header-wrapper {
@@ -26,46 +44,66 @@
     width: 743px;
 }
 
-.uses-of-plant-container .uses-of-plant-rectangle {
-    background-color: #000000;
-    height: 43px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 230px;
-}
-
-.uses-of-plant-container .uses-of-plant-underline {
-    background-color: #000000;
-    height: 9px;
-    left: 155px;
-    position: absolute;
-    top: 34px;
-    width: 91px;
-}
-
 .uses-of-plant-container .uses-of-plant-title {
-    color: #ffffff;
-    font-family: "Nippo-Regular", Helvetica;
-    font-size: 28px;
+    background-color: transparent !important; /* Remove original background */
+    color: #fff;
+    font: 378 32px 'Nippo-Regular', sans-serif;
     font-weight: 400;
     left: 0;
-    letter-spacing: 0.84px;
-    line-height: normal;
+    letter-spacing: 3%;
+    line-height: 100%;
+    position: relative; /* Ensure positioning context */
+    top: 10px;
+    width: fit-content;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 1; /* Keep text above the new background */
+    padding-block: 12px;
+}
+
+.uses-of-plant-container .uses-of-plant-title::before {
+    content: '';
     position: absolute;
-    top: 3px;
-    width: 743px;
+    top: 0;
+    left: 3px !important; /* Inset from left */
+    right: 2px !important; /* Inset from right */
+    bottom: 0;
+    background-color: #000;
+    z-index: -1; /* Place behind text */
+}
+
+.uses-of-plant-container .uses-of-plant-title::after {
+    content: '';
+    position: absolute;
+    left: 3px; /* Match the left inset of the background */
+    bottom: 0;
+    width: 111%;
+    height: 12px;
+    background-color: #000;
+    z-index: -1;
 }
 
 .circle-inverted {
     border-radius: 50%;
-    width: 78px;
-    height: 78px;
+    width: 57px;
+    height: 57px;
     border: 1px solid #000;
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1;
+}
+
+/* Added styling for the circle image */
+.circle-image {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+    top: 10px;
     z-index: 2;
+    object-fit: cover;
 }
 
 .text-vector-group {
@@ -74,8 +112,9 @@
     align-items: start;
     position: relative;
     width: 100%;
-    padding-left: 100px;
+    padding-left: 80px;
     padding-bottom: 10px;
+    padding-top: 7px;
     flex-grow: 1;
 }
 
@@ -98,17 +137,89 @@
     letter-spacing: 0.03em; /* 3% converted to em units */
 }
 
-.vector-166 {
-    width: auto;
-    height: calc(100% - 40px);
-    position: absolute;
-    top: 40px;
-    bottom: 0;
-    z-index: 1;
-    object-fit: fill;
+/* Removed vector-166 styles and replaced with items-content-container styles */
+.items-content-container {
+    position: relative;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    width: calc(100% - 20px);
+    /* Add transition for smooth height change */
+    transition: all 0.3s ease;
 }
 
-.nutrition-text-header {
+/* Add left border with different heights for expanded/unexpanded states */
+/* Base left border for all states */
+.items-content-container::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 2px;
+    background-color: #000;
+}
+
+/* Shorter height for unexpanded state */
+.text-vector-group:not(.expanded) .items-content-container::after {
+    height: calc(100% - 20px);
+}
+
+/* Taller height for expanded state */
+.text-vector-group.expanded .items-content-container::after {
+    height: calc(100% - 20px); /* Same height as unexpanded state */
+}
+
+/* Add 80px top border for all states */
+.items-content-container::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 66px;
+    height: 2px;
+    background-color: #000;
+}
+
+/* Add 40px solid bottom border */
+.items-content-container .bottom-border {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    width: 120px;
+    height: 2px;
+    background-color: #000;
+}
+
+/* Add dotted line extension for unexpanded state */
+.items-content-container .bottom-border-dotted {
+    position: absolute;
+    bottom: 0px;
+    left: 60px; /* Position right after the solid border */
+    width: 270px;
+    height: 0;
+    border-top: 2px dashed #000;
+    display: none; /* Hidden by default */
+    /* Customize dash size to make them wider */
+    border-spacing: 4px;
+}
+
+/* Add specific styling for wider dashes using background */
+@supports (background: linear-gradient(#000, #000)) {
+    .items-content-container .bottom-border-dotted {
+        border-top: none;
+        height: 2px;
+        background: linear-gradient(to right, #000 10px, transparent 5px);
+        background-size: 18px 2px;
+        background-repeat: repeat-x;
+    }
+}
+
+/* Only show dotted extension in unexpanded state */
+.text-vector-group:not(.expanded) .items-content-container .bottom-border-dotted {
+    display: block;
+}
+
+.nutritional-text-header {
     font-family: Nippo-Regular;
     font-weight: 378;
     font-size: 20px;
@@ -120,7 +231,7 @@
     margin-top: 20px;
 }
 
-.nutrition-text-text {
+.nutritional-text-text {
     font-family: 'ClashGrotesk-Regular';
     font-weight: 400;
     font-size: 14px;
@@ -130,25 +241,16 @@
     max-width: 80%;
     position: relative;
     z-index: 0;
-    left: 20px;
     margin-top: 10px;
-}
-
-.vector-167 {
-    width: 190px;
-    height: 125px;
-    position: absolute;
-    left: 220px;
-    bottom: -61px;
-    z-index: 1;
+    margin-bottom: 10px;
 }
 
 .ellipse-89 {
     width: 33px;
     height: 33px;
     position: absolute;
-    left: 77px;
-    top: 32%;
+    left: -22px;
+    top: 7%;
     transform: translateY(-50%);
     z-index: 2;
 }
@@ -178,12 +280,6 @@
     justify-content: flex-start;
     width: 100%;
     padding-left: 100px;
-}
-
-.vector-166.expanded {
-    height: calc(250%);
-    top: 40px;
-    bottom: auto;
 }
 
 .medicine {
@@ -217,8 +313,8 @@
     max-width: 80%;
     position: relative;
     z-index: 0;
-    left: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .additional {
@@ -251,8 +347,16 @@
     max-width: 80%;
     position: relative;
     z-index: 0;
-    left: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Added rule to indent text elements ONLY inside the items-content-container */
+.items-content-container .nutritional-text-text,
+.items-content-container .medicine-text-text,
+.items-content-container .additional-text-text {
+    position: relative; /* Keep relative positioning */
+    left: 20px; /* Apply indentation only to these nested elements */
 }
 
 .button-container-bibliography {

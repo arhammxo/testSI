@@ -10,11 +10,12 @@
 
 .bottom-section4 .box {
     height: auto;  /* Changed from fixed height */
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-direction: column;  /* Add column layout */
-    align-items: center;     /* Center items horizontally */
+    align-items: left;     /* Center items horizontally */
     gap: 0;                  /* Remove flex gap */
+    margin-left: 10%;
 }
 
 .bottom-section4 .box > .box {  /* Target species boxes */
@@ -38,11 +39,11 @@
 .bottom-section4 .box .text-wrapper {
     color: #ffffff;
     font-family: "Nippo-Light", Helvetica;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 300;
     left: 44px;
-    letter-spacing: 0.96px;
-    line-height: normal;
+    letter-spacing: 3%;
+    line-height: 100%;
     position: absolute;
     top: 0;
 }
@@ -77,9 +78,9 @@
 
 .bottom-section4 .box .text-wrapper-2 {
     color: #ffffff;
-    font-family: "Nippo-Regular", Helvetica;
+    font-family: "Nippo-Light", Helvetica;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 300;
     left: 0;
     letter-spacing: 0.45px;
     line-height: normal;
@@ -124,10 +125,10 @@
 /* New style for group-2 overlap */
 .bottom-section4 .box .overlap-group-right {
     height: 109px;
-    left: 0px;
+    left: -20%;
     position: absolute;
-    top: 249px;
-    width: 228px;
+    top: 265px;
+    width: 100%;
 }
 
 .bottom-section4 .box .element {
@@ -202,9 +203,9 @@
 }
 .bottom-section4 .box .overlap-group .soil-label {
     color: #ffffff;
-    font-family: "Nippo-Regular", Helvetica;
+    font-family: "Nippo-Light", Helvetica;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 0.45px;
     position: absolute;
     left: 0;
@@ -233,48 +234,62 @@
 }
 
 .bottom-section4 .box .overlap-group-wrapper {
-    height: 57px;
-    width: fit-content;
-    margin: 0 auto 30px;
+    position: relative;
+    left: 0;
+    text-align: left;
+    padding-bottom: 7%;
 }
 
 .bottom-section4 .box .overlap-group-2 {
+    background-color: #000;
     height: 57px;
     position: relative;
     width: fit-content;
-}
-
-.bottom-section4 .box .rectangle-6 {
-    background-color: #ffffff;
-    height: 57px;
-    width: calc(100%);
-    position: absolute;
-    left: 2px;
-    top: 0;
-}
-
-.bottom-section4 .box .rectangle-7 {
-    background-color: #ffffff;
-    height: 10px;
-    width: calc(100%);
-    position: absolute;
-    left: 50px;
-    top: 47px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .bottom-section4 .box .text-wrapper-3 {
+    background-color: transparent !important; /* Remove original background */
     color: #181818;
-    font-family: "Nippo-Regular", Helvetica;
-    font-size: 28px;
+    font: 378 32px 'Nippo-Regular', sans-serif;
     font-weight: 400;
-    letter-spacing: 0.84px;
-    position: relative;
-    top: 9px;
-    width: 100%;
-    z-index: 1;
+    left: 0;
+    letter-spacing: 3%;
+    line-height: 100%;
+    position: relative; /* Ensure positioning context */
+    top: 10px;
+    width: fit-content;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 1; /* Keep text above the new background */
+    padding-block: 12px;
+}
+
+/* Add new ::before pseudo-element for the inset background */
+.bottom-section4 .box .text-wrapper-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3px; /* Inset from left */
+    right: 2px; /* Inset from right */
+    bottom: 0;
+    background-color: #fff;
+    z-index: -1; /* Place behind text */
+}
+
+.bottom-section4 .box .text-wrapper-3::after {
+    content: '';
+    position: absolute;
+    left: 3px; /* Match the left inset of the background */
+    bottom: 0;
+    width: 111%;
+    height: 12px;
+    background-color: #ffffff;
+    z-index: -1;
 }
 
 .bottom-section4 .box.right-aligned .overlap-group {
-    left: 24%;  /* Updated from default position */
     position: absolute;  /* Ensure positioning context */
 }

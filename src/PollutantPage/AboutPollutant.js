@@ -1,19 +1,29 @@
 import React from 'react';
 import '../pollutantPage.css'; // Import your CSS file if needed
 
-const AboutPollutantSection = () => {
+export const AboutPollutantSection = ({ sections }) => {
+  if (!sections || sections.length === 0) return null;
+  
+  // Get first section's text
+  const contentText = sections[0].text;
+  
+  // Split text at first underscore
+  const [titlePart, descriptionPart] = contentText.split(/_/, 2);
+
   return (
-    <div className="bottom-section1" id="about-pollutant">
-      <div className="main-container">
+      <div className="main-container" id="about-pollutant">
         <div className="flex-row-f">
           <img 
             src="/ap.png" 
             alt="Pollutant" 
             className="image"
           />
-          <div className="about-pollutant">
-            <span className="about">About </span>
-            <span className="pollutant">Pollutant </span>
+          <div id="about-pollutant-section" className="about-pollutant">
+            {/* Split title into two parts at first space */}
+            <span className="about">{titlePart.split(' ', 1)[0]} </span>
+            <span className="pollutant">
+              {titlePart.slice(titlePart.indexOf(' ') + 1)}
+            </span>
           </div>
         </div>
         <div className="flex-row-a">
@@ -21,21 +31,12 @@ const AboutPollutantSection = () => {
             src="l1.png" 
             alt="Vector graphic" 
             className="vector-image"
+            style={{width: '100%'}}
           />
         </div>
 
         <span className="lorem-ipsum-dolor">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida
-          imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu
-          neque. Etiam rhoncus erat non quam vehicula, sed maximus magna
-          tincidunt. Sed condimentum sollicitudin nibh, nec mattis quam. Ut eu
-          volutpat nisi, quis varius risus. Integer rutrum eros ac turpis euismod,
-          in tincidunt risus dapibus. Etiam eget turpis massa. Fusce rutrum sit
-          amet magna sit amet aliquam. Donec sit amet cursus erat, sit amet
-          sagittis nunc. Nullam mattis risus nisi, non interdum elit congue in.
-          Donec vitae ligula elit. Morbi nec luctus elit, eu feugiat turpis. Sed
-          porttitor luctus ornare. Suspendisse condimentum fermentum convallis.
+          {descriptionPart}
         </span>
         <img 
           src="g3.png" 
@@ -43,8 +44,5 @@ const AboutPollutantSection = () => {
           className="group-3"
         />
       </div>
-    </div>
   );
 };
-
-export default AboutPollutantSection;

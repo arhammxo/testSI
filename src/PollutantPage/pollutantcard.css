@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+
 .container {
     background: #000;
-    padding: 95px 69px;
+    padding: 5%;
     overflow: hidden;
     position: relative;
   }
@@ -41,18 +43,24 @@
   .pollutantName {
     width: 528px;
     color: #FFF;
-    font-size: 42px;
-    font-style: normal;
+    font-family: 'Nippo-Light';
+    font-size: 32px;
     font-weight: 300;
-    line-height: normal;
-    letter-spacing: 0.96px;
-    margin-top: 8px;
+    line-height: 100%;
+    letter-spacing: 3%;
+    margin-top: 2%;
   }
   
   .description {
     color: #fff;
-    margin-top: 24px;
-    font: 300 15px/23px 'Nippo-Light', sans-serif;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: 'Chivo Mono';
+    font-weight: 400;
+    font-size: 10px;
+    width: 40%;
+    line-height: 165%;
+    letter-spacing: 0;
     padding-left: 15px;
   }
   
@@ -63,8 +71,8 @@
   
   .descriptionLine {
     position: relative;
-    padding-left: 12px;
-    margin: 4px 0;
+    padding-left: 3%;
+    margin: 2% 0;
   }
   
   .descriptionLine::before {
@@ -124,8 +132,8 @@
     text-align: right;
     text-transform: uppercase;
     letter-spacing: 1.4px;
-    padding: 4px 10px;
-    font: 378 10px 'Nippo-Light', sans-serif;
+    padding: 6px 12px;
+    font: 378 12px 'Nippo-Light', sans-serif;
     border: 1px solid black;
     cursor: pointer;
     margin: 10px 0;
@@ -142,22 +150,94 @@
     border-radius: 50%;
     aspect-ratio: 1;
     border: 1px solid #fff;
-    align-self: flex-end;
-    margin-top: 10%;
-    width: 30%;
-    margin-right: 15%;
+    width: 320px;
+    height: 320px;
     object-fit: contain;
     z-index: 20;
+    position: absolute;
+    top: 18.3em; /* Moved upwards by adjusting the top position */
+    left: 550px; /* Moved to the right by adjusting the left position */
   }
-  
   .pollutantImage {
     padding-right: 0;
     aspect-ratio: 1.1;
     object-fit: contain;
     width: 100%;
   }
+  .circle-container{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    
+  }
   
-  
+  .circle{
+    border-radius: 50%;
+    aspect-ratio: 1;
+    /* border: 1px solid #fff; */
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    z-index: 20;
+  }
 
-  
+  .circle1{
+    position: absolute;
+    top: 250px;
+    left: 200px;
+    background: #fff;
+  }
+  .circle2{
+    position: absolute;
+    top: 250px;
+    left: 310px;
+    background: #000000;
+  }
+  .circle3{
+    position: absolute;
+    top: 250px;
+    left: 420px;
+    background: #000000;
+  }
+
+  .circle4{
+    position: absolute;
+    top: 370px;
+    left: 310px;
+    background: #ffffff;
+  }
  
+  .line{
+    width: 200px;
+    height: 1px;
+    background-color: white;
+  }
+
+  .line1{
+    width: 130px!important;
+    position: absolute;
+    top: 260px;
+    left: 210px;
+  }
+  .line4{
+    position: absolute;
+    top: 280px;
+    left: 210px;
+  }
+
+  .line2{
+    width: 130px!important;
+    position: absolute;
+    top: 270px;
+    left: 320px;
+    background-color: #000;
+    z-index: 40;
+  }
+  .line3{
+    width: 130px!important;
+    position: absolute;
+    top: 330px;
+    left: 265px;
+    transform: rotate(90deg);
+  }

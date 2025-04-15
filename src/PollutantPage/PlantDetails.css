@@ -1,19 +1,19 @@
 .plantContainer {
   background: #fff;
-  padding: 31px 61px 84px;
+  padding: 5%;
   overflow: hidden;
 }
 
 .contentWrapper {
   display: flex;
   gap: 20px;
+  height: fit-content !important;
 }
 
 .sidebar {
   width: 30%;
   display: flex;
   flex-direction: column;
-  margin-top: 60px;
 }
 
 .mainContent {
@@ -49,8 +49,8 @@
 }
 
 .plantDescription {
-  width: 40%;
-  margin-left: 20px;
+  width: 30%;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -59,13 +59,21 @@
 }
 
 .plantName {
-  letter-spacing: 1.44px;
-  font: 378 48px Nippo-Regular, sans-serif;
+  font-family: 'Nippo-Regular';
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 3%;
+  text-align: right;
   margin-bottom: 10px;
 }
 
 .plantDetails {
-  font: 300 15px/23px 'Nippo-Regular', sans-serif;
+  font-family: 'Chivo Mono';
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 165%;
+  letter-spacing: 0;
 }
 
 .infoSection {
@@ -76,9 +84,11 @@
 }
 
 .sectionTitle {
-  letter-spacing: 0.72px;
-  font: 300 24px 'Nippo-Regular', sans-serif;
+  font: 378 24px 'Nippo-Regular', sans-serif;
+  line-height: 100%;
+  letter-spacing: 3%;
   margin-bottom: 15px;
+  margin-top: 5%;
 }
 
 .sectionDescription {
@@ -90,7 +100,7 @@
 .titleList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   width: 100%;
 }
 
@@ -104,12 +114,14 @@
 
 .titleText {
   flex-grow: 1;
-  font: 300 15px/23px 'Nippo-Light', sans-serif;
+  font: 300 10px 'Chivo Mono', sans-serif;
+  line-height: 224%;
+  letter-spacing: 0%;
 }
 
 .bulletcircle {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   border: 1px solid #000;
   border-radius: 50%;
   overflow: hidden;
@@ -141,11 +153,11 @@
   text-align: left;
   text-transform: uppercase;
   letter-spacing: 1.4px;
-  padding: 4px 10px;
-  font: 378 10px 'Nippo-Light', sans-serif;
+  padding: 6px 12px;
+  font: 378 12px 'Nippo-Regular', sans-serif;
   border: 1px solid black;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 5px 0;
   align-self: flex-start;
 }
 
@@ -183,8 +195,33 @@
     margin-left: 0;
     margin-top: 40px;
   }
+}
 
-  .plantName {
-    font-size: 40px;
-  }
+
+/* For the first title (Wetland status) */
+.sidebar > :first-child h1,
+.sidebar > :first-child h2,
+.sidebar > :first-child h3,
+.sidebar > :first-child .title,
+.sidebar > :first-child .sectionTitle,
+.rightPanel-sidebar > :first-child h1,
+.rightPanel-sidebar > :first-child h2,
+.rightPanel-sidebar > :first-child h3,
+.rightPanel-sidebar > :first-child .title,
+.rightPanel-sidebar > :first-child .sectionTitle {
+  font-size: 24px !important;
+  font-family: 'Nippo-Regular', sans-serif;
+  letter-spacing: 3%;
+  font-weight: 378;
+  line-height: 100%;
+}
+
+/* For the second title (Phytoremediation capacity) */
+.sidebar > div:nth-child(2) .sectionTitle,
+.rightPanel-sidebar > div:nth-child(2) .sectionTitle {
+  font-size: 18px !important;
+  font-family: 'Nippo-Regular', sans-serif;
+  letter-spacing: 3%;
+  font-weight: 378;
+  line-height: 100%;
 }

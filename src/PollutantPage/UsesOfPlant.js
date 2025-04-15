@@ -1,147 +1,142 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./UsesOfPlant.css";
-import vector166 from "./vector-166.svg";
 import vector167 from "./vector-167.svg";
 import ellipse89 from "./ellipse-89.svg";
-import vector166E from "./vector-166-e.svg";
 import longDownArrow from "./long-down-arrow.svg";
+// Import specific images for each section
+import nutritionalImage from "./nutritional.png";
+import medicineImage from "./uses2.png";
+import additionalImage from "./uses3.png";
 
-export const UsesOfPlant = () => {
+export const UsesOfPlant = ({ sectionsData }) => {
   const [expandedSection, setExpandedSection] = useState(null);
-
-  const handleReadMore = (section) => {
-    setExpandedSection(prev => prev === section ? null : section);
+  const contentRefs = useRef({});
+  
+  // Destructure props
+  const { plantName, sections: groupedSections } = sectionsData;
+  
+  // Function to get the appropriate image based on section id
+  const getSectionImage = (sectionId) => {
+    switch(sectionId) {
+      case "nutritional":
+        return nutritionalImage;
+      case "medicine":
+        return medicineImage;
+      case "additional":
+        return additionalImage;
+      default:
+        return nutritionalImage; // Default fallback
+    }
   };
 
+  const handleReadMore = (sectionId) => {
+    setExpandedSection(prev => prev === sectionId ? null : sectionId);
+  };
+  
   return (
     <div className="uses-of-plant-container">
-        <div className="uses-of-plant-header">
-            <div className="uses-of-plant-rectangle" />
-            <div className="uses-of-plant-underline" />
-            <div className="uses-of-plant-title">Uses of the Plant</div>
-        </div>
-        <div className="uses-container-nutritional">
-            <div className="circle-inverted"/>
-            <div className={`text-vector-group ${expandedSection === 'nutritional' ? 'expanded' : ''}`}>
-                <div className="nutritional">NUTRITIONAL</div>
-                <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                <div className="nutrition-text-header">This is placeholder text for title</div>
-                <div className="nutrition-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                <img 
-                    alt="nsvg"
-                    src={expandedSection === 'nutritional' ? vector166E : vector166}
-                    className={`vector-166 ${expandedSection === 'nutritional' ? 'expanded' : ''}`}
-                />
-                {expandedSection !== 'nutritional' && <img alt="nsvg" src={vector167} className="vector-167" />}
-            </div>
-            
-            {expandedSection === 'nutritional' && (
-              <>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="nutrition-text-header">This is placeholder text for title</div>
-                  <div className="nutrition-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="nutrition-text-header">This is placeholder text for title</div>
-                  <div className="nutrition-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-              </>
-            )}
-            
-            <div className="button-container">
-                <button className="read-more-button" onClick={() => handleReadMore('nutritional')}>
-                    {expandedSection === 'nutritional' ? 'Show Less' : 'Read More'}
-                </button>
-            </div>
-        </div>
-        <div className="uses-container-medicine"> 
-            <div className="circle-inverted"/>
-            <div className={`text-vector-group ${expandedSection === 'medicine' ? 'expanded' : ''}`}>
-                <div className="medicine">MEDICINE</div>
-                <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                <div className="medicine-text-header">This is placeholder text for title</div>
-                <div className="medicine-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                <img 
-                    alt="nsvg"
-                    src={expandedSection === 'medicine' ? vector166E : vector166}
-                    className={`vector-166 ${expandedSection === 'medicine' ? 'expanded' : ''}`}
-                />
-                {expandedSection !== 'medicine' && <img alt="nsvg" src={vector167} className="vector-167" />}
-            </div>
-            
-            {expandedSection === 'medicine' && (
-              <>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="medicine-text-header">This is placeholder text for title</div>
-                  <div className="medicine-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="medicine-text-header">This is placeholder text for title</div>
-                  <div className="medicine-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-              </>
-            )}
-            
-            <div className="button-container">
-                <button className="read-more-button" onClick={() => handleReadMore('medicine')}>
-                    {expandedSection === 'medicine' ? 'Show Less' : 'Read More'}
-                </button>
-            </div>
-        </div>
-        <div className="uses-container-additional">
-            <div className="circle-inverted"/>
-            <div className={`text-vector-group ${expandedSection === 'additional' ? 'expanded' : ''}`}>
-                <div className="additional">ADDITIONAL</div>
-                <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                <div className="additional-text-header">This is placeholder text for title</div>
-                <div className="additional-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                <img 
-                    alt="nsvg"
-                    src={expandedSection === 'additional' ? vector166E : vector166}
-                    className={`vector-166 ${expandedSection === 'additional' ? 'expanded' : ''}`}
-                />
-                {expandedSection !== 'additional' && <img alt="nsvg" src={vector167} className="vector-167" />}
-            </div>
-            
-            {expandedSection === 'additional' && (
-              <>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="additional-text-header">This is placeholder text for title</div>
-                  <div className="additional-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-                <div className="text-vector-group">
-                  <img src={ellipse89} alt="ellipse" className="ellipse-89" />
-                  <div className="additional-text-header">This is placeholder text for title</div>
-                  <div className="additional-text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu neque. Etiam rhoncus erat non quam vehicula, sed maximus magna tincidunt.</div>
-                </div>
-              </>
-            )}
-            
-            <div className="button-container">
-                <button className="read-more-button" onClick={() => handleReadMore('additional')}>
-                    {expandedSection === 'additional' ? 'Show Less' : 'Read More'}
-                </button>
-            </div>
-        </div>
-        <div className="uses-of-plant-container" style={{marginLeft: '100px'}}>
+      <div className="uses-of-plant-header">
+        <div className="uses-of-plant-title">Uses of {plantName}</div>
+      </div>
+
+      {groupedSections.map(section => (
+        <div key={section.id} className={`uses-container-${section.id}`}>
+          <div className="circle-inverted" />
           <img 
-              alt="down arrow"
-              src={longDownArrow}
-              className="down-arrow-icon"
-              style={{marginTop: '120px', marginBottom: '160px', marginLeft: '40px'}}
+            src={getSectionImage(section.id)} 
+            alt={`${section.id} icon`} 
+            className="circle-image" 
           />
-          <div className="button-container-bibliography">
-            <button className="bibliography-button">
-              BIBLIOGRAPHY
-            </button>
+          
+          <div className={`text-vector-group ${expandedSection === section.id ? 'expanded' : ''}`}>
+            {/* Section title and flavor text */}
+            <div className={section.id}>{section.title}</div>
+            <div className={`${section.id}-text-text`}>{section.flavourtext}</div>
+            
+            {/* Content container */}
+            <div ref={el => contentRefs.current[section.id] = el} className="items-content-container">
+              {/* When collapsed, show only the first item */}
+              {expandedSection !== section.id && section.items.length > 0 && (
+                <>
+                  <div className="collapsed-header-container" style={{ position: 'relative' }}>
+                    <img 
+                      src={ellipse89} 
+                      alt="ellipse" 
+                      style={{
+                        width: '33px',
+                        height: '33px',
+                        position: 'absolute',
+                        left: '-22px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 2
+                      }} 
+                    />
+                    <div className={`${section.id}-text-header`}>
+                      {section.items[0].header}
+                    </div>
+                  </div>
+                  <div className={`${section.id}-text-text`}>
+                    {section.items[0].text}
+                  </div>
+                  {/* Add bottom border element */}
+                  <span className="bottom-border"></span>
+                  {/* Add dotted border extension for unexpanded state */}
+                  <span className="bottom-border-dotted"></span>
+                  {/* Add small circle at the end of top border */}
+                  <span className="top-border-circle"></span>
+                </>
+              )}
+              
+              {/* When expanded, show all items with each having its own ellipse */}
+              {expandedSection === section.id && 
+                <>
+                  {section.items.map((item, index) => (
+                    <div key={index} className="overlay-container" style={{ position: 'relative', marginBottom: '25px' }}>
+                      <img src={ellipse89} alt="ellipse" className="ellipse-89" />
+                      <div className={`${section.id}-text-header`}>
+                        {item.header}
+                      </div>
+                      <div className={`${section.id}-text-text`}>
+                        {item.text}
+                      </div>
+                    </div>
+                  ))}
+                  {/* Add bottom border for expanded state */}
+                  <span className="bottom-border"></span>
+                  {/* Add small circle at the end of bottom border for expanded state */}
+                  <span className="bottom-border-circle"></span>
+                  {/* Add small circle at the end of top border */}
+                  <span className="top-border-circle"></span>
+                </>
+              }
+            </div>
           </div>
+
+          {/* Show Read More/Less button if there's at least one item */}
+          {section.items.length >= 1 && (
+            <div className="button-container">
+              <button className="read-more-button" onClick={() => handleReadMore(section.id)}>
+                {expandedSection === section.id ? 'Show Less' : 'Read More'}
+              </button>
+            </div>
+          )}
         </div>
-        
+      ))}
+
+      <div className="uses-of-plant-container" style={{ marginLeft: '100px' }}>
+        <img
+          alt="down arrow"
+          src={longDownArrow}
+          className="down-arrow-icon"
+          style={{ marginTop: '120px', marginBottom: '160px', marginLeft: '40px' }}
+        />
+        <div id="references" className="button-container-bibliography">
+          <a href="" className="bibliography-button">
+            BIBLIOGRAPHY
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

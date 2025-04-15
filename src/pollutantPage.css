@@ -13,27 +13,6 @@ body, html {
   display: flex;
 }
 
-/* Adjust height for 100-125% zoom */
-@media (min-resolution: 1.25dppx) {
-  .slider-container {
-    height: 125vh;
-  }
-}
-
-/* Adjust height for 125-150% zoom */
-@media (min-resolution: 1.5dppx) {
-  .slider-container {
-    height: 150vh;
-  }
-}
-
-/* New rule for 150-200% zoom */
-@media (min-resolution: 1.7dppx) {
-  .slider-container {
-    height: 200vh ;
-  } 
-}
-
 .left-panel,
 .right-panel {
   position: absolute;
@@ -65,12 +44,13 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* Ensures the slider is above the panels */
+  z-index: 10;
+  top: -15em; /* Ensures the slider is above the panels */
 }
 
 .slider-circle {
-  width: 40px; /* Diameter of the circle */
-  height: 40px; /* Diameter of the circle (equal to width) */
+  width: 1em; /* Diameter of the circle */
+  height: 1em; /* Diameter of the circle (equal to width) */
   background-color: white; /* Ensures the circle has a visible background */
   border: 2px solid black; /* Optional: Adds a black border to enhance visibility */
   border-radius: 100%; /* Makes the element a perfect circle */
@@ -251,7 +231,7 @@ body.sound-panel-active .sound-icon span {
 .nav-menu {
   position: fixed;
   top: 0;
-  left: -100%;
+  left: -106%;
   width: 100vw;
   height: 100vh;
   background: black;
@@ -260,13 +240,14 @@ body.sound-panel-active .sound-icon span {
   flex-direction: column;
   align-items: center;
   transition: 0.4s ease-in-out;
-  z-index: 999;
+  z-index: 99 !important;
   overflow-y: hidden; /* Changed from auto to hidden */
 }
 
 .nav-menu.open {
   left: 0;
   overflow-y: auto; /* Only enable scrolling when open */
+  z-index: 99 !important;
 }
 
 /* Close Button */
@@ -285,6 +266,7 @@ body.sound-panel-active .sound-icon span {
   padding: 0;
   margin-top: 80px;
   width: 80%;
+  height: fit-content;
   max-width: 1200px;
   margin: 50px auto 0;
   padding-bottom: 100px;
@@ -352,7 +334,7 @@ body.sound-panel-active .sound-icon span {
 /* ✅ Fix Scrollable Section Alignment */
 .bottom-section1 {
   background-color: black;
-  min-height: 100vh;
+  height: auto;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -361,11 +343,24 @@ body.sound-panel-active .sound-icon span {
 
 .bottom-section1 > img,
 
-.bottom-section2 {
+/* Updated styles for the new classes */
+.sound-frequency-section{
   background-color: black;
-  min-height: 100vh;
   color: white;
   padding: 0px 69px; /* Match left panel padding */
+  height: 666px; /* Ensure height adjusts to content */
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.effect-on-health-section {
+  background-color: black;
+  color: white;
+  padding: 0px 69px; /* Match left panel padding */
+  height: auto; /* Ensure height adjusts to content */
+  box-sizing: border-box;
+  position: relative;
 }
 
 .combined-section {
@@ -374,20 +369,23 @@ body.sound-panel-active .sound-icon span {
   position: relative;
   min-height: 100vh;
   overflow: visible;
-  background-color: #000; /* Changed from transparent to black */
+  background-color: #000;
   gap: 0;
+  margin-top: -60vh; /* Changed from top: -calc(100%) to margin-top: -100vh */
 }
 
 .nav-bar {
   position: sticky;
-  top: 60px;
-  height: calc(100vh - 60px); /* Use viewport height minus top offset */
-  width: 35%;
+  top: 20px;
+  height: calc(100vh - 10px); /* Use viewport height minus top offset */
+  width: 25%;
   z-index: 10;
-  margin-top: 100px;
+  margin-top: 20px;
   margin-bottom: 20px; /* Added bottom margin */
   align-self: flex-start;
   overflow-y: auto; /* Allow scrolling if content exceeds height */
+  margin-left: 3%;
+  margin-right: 3%;
 }
 
 /* ✅ Styling Each Text Item */
@@ -415,12 +413,12 @@ body.sound-panel-active .sound-icon span {
 }
 
 /* ✅ Adjusting Positions Based on Your CSS */
-.nav-bar .text-wrapper { top: 20px; left: 174px; font-size: 25px; }
+.nav-bar .text-wrapper { top: 20px; left: 174px; font-size: 24px; }
 .nav-bar .text-wrapper-2 { top: 120px; left: 155px; }
 .nav-bar .text-wrapper-8 { top: 180px; left: 155px; }
 .nav-bar .text-wrapper-9 { top: 240px; left: 155px; }
 .nav-bar .text-wrapper-10 { top: 280px; left: 155px; width: 141px; }
-.nav-bar .div { top: 370px; left: 174px; font-size: 25px; }
+.nav-bar .div { top: 370px; left: 174px; font-size: 24px; }
 .nav-bar .text-wrapper-3 { top: 460px; left: 155px; }
 .nav-bar .text-wrapper-4 { top: 530px; left: 155px; }
 .nav-bar .text-wrapper-5 { top: 590px; left: 155px; }
@@ -601,7 +599,7 @@ body.sound-panel-active .sound-icon span {
 
 /* Adjust nav-item spacing */
 .nav-item {
-  padding: 25px 15px !important;
+  padding: 25px 15px;
   transition: all 0s;
   position: relative;
   margin-bottom: 50px;
@@ -656,10 +654,10 @@ body.homepage-active .hamburger span {
 .main-container {
   position: relative;
   margin-top: 80px;
-  width: 604px;
-  height: 802.668px;
+  width: 75%;
+  height: auto;
   overflow: hidden;
-  margin-left: calc(15%);
+  margin: 10%;
 }
 
 /* Add this new rule for inverted section */
@@ -678,8 +676,8 @@ body.homepage-active .hamburger span {
 }
 
 .image {
-  width: 57.501px;
-  height: 57.501px;
+  width: 71px;
+  height: 71px;
   background: #fff;
   border-radius: 50%;
 }
@@ -699,17 +697,6 @@ body.homepage-active .hamburger span {
   color: #fff;
   display: inline-block;
   position: relative;
-  padding-bottom: 2px; /* Controls gap size */
-}
-
-.pollutant::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 1px; /* Adjusts underline position */
-  width: 100%;
-  height: 1px; /* Controls underline thickness */
-  background-color: currentColor;
 }
 
 .flex-row-a {
@@ -726,7 +713,7 @@ body.homepage-active .hamburger span {
 }
 
 .lorem-ipsum-dolor {
-  width: 600px;
+  width: 100%;
   color: #fff;
   font-family: 'ClashGrotesk-Light', -apple-system, sans-serif;
   font-size: 14px;
@@ -745,6 +732,7 @@ body.homepage-active .hamburger span {
   margin: 20px auto 0; /* Changed from margin-top to margin with auto horizontal */
   object-fit: contain;
   background: none;
+  padding-top: 20px;
 }
 
 .nav-bar .text-wrapper,
@@ -789,89 +777,6 @@ body.homepage-active .hamburger span {
   left: 0;  /* Maintain circle alignment */
 }
 
-.bottom-section2 .content-container {
-  width: fit-content;
-  margin-left: 69px;
-  color: black;
-  background-color: white;
-  padding: 0.5px 0; /* Reduced vertical padding */
-  box-sizing: border-box;
-  font: 400 28px 'Nippo-Light', sans-serif;
-}
-
-.bottom-section2 .wave-container {
-  border: 1px solid white;
-  margin-top: 20px;
-  margin-left: 69px;
-  width: calc(55%); /* Adjust width to account for margins */
-  height: 200px; /* Set desired height */
-  background-color: black;
-}
-
-.nav-item-header {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  cursor: default;
-  width: 100%;
-}
-
-.nav-item-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  width: 100%;
-  justify-content: flex-start; /* Changed from space-between to push content to start */
-}
-
-.nav-underline, .expanded-underline {
-  position: absolute;
-  left: 0;
-  bottom: -20px;
-  width: 100%;
-  transform: none;
-  transition: all 0s;
-}
-
-.nav-item.expanded .nav-underline {
-  opacity: 0;
-  left: 50px;
-  top: 0px;
-}
-
-.nav-item.expanded .expanded-underline {
-  opacity: 1;
-  transform: translateX(-50%) scaleX(1.2) translateY(20px);
-}
-
-.nav-item-text {
-  font-family: "Nippo-Light", sans-serif;
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 1.2;
-  letter-spacing: 0;
-  text-align: left;
-  margin-left: 2%;
-}
-
-.nav-arrow {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  right: 0px;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.visible {
-  opacity: 1;
-}
-
 .content-sections {
   flex: 2;
   position: relative;
@@ -880,9 +785,16 @@ body.homepage-active .hamburger span {
   height: auto; /* Changed from default */
 }
 
+@media (max-width: 768px) {
+  .content-sections {
+    width: 120%;
+  }
+}
+
 /* Remove any existing margin/padding on these elements */
-.bottom-section1, 
-.bottom-section2 {
+.bottom-section1,
+.sound-frequency-section,
+.effect-on-health-section {
   padding: 0;
   margin: 0;
 }
@@ -1056,7 +968,7 @@ body.homepage-active .hamburger span {
 
 /* Ensure all sections take full viewport height */
 .bottom-section1,
-.bottom-section2,
+.effect-on-health-section,
 .bottom-section3,
 .bottom-section4,
 .bottom-section5,
@@ -1125,7 +1037,8 @@ body.white-panel-active .white-container {
 
 /* Hide black sections when white panel is active */
 body.white-panel-active .bottom-section1,
-body.white-panel-active .bottom-section2,
+body.white-panel-active .sound-frequency-section,
+body.white-panel-active .effect-on-health-section,
 body.white-panel-active .bottom-section3,
 body.white-panel-active .bottom-section4 {
   display: none;
@@ -1138,7 +1051,8 @@ body.black-panel-active .white-container {
 
 /* Ensure black sections are visible by default */
 .bottom-section1,
-.bottom-section2,
+.sound-frequency-section,
+.effect-on-health-section,
 .bottom-section3,
 .bottom-section4 {
   display: block;
@@ -1237,15 +1151,17 @@ body.white-panel-active .combined-section {
   .main-container {
     width: 100% !important;
     margin-left: 0;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
 
-  .bottom-section1, .bottom-section2, .white-container > div {
+  .bottom-section1, 
+  .effect-on-health-section,
+  .white-container > div {
     padding: 2rem 1rem !important;
     min-height: auto;
   }
 
-  .wave-container {
+  .sound-frequency-section .wave-container {
     width: 100% !important;
     margin-left: 0 !important;
   }
@@ -1316,4 +1232,98 @@ img {
 .responsive-section {
   padding: 2vw;
   margin: 1vw 0;
+}
+
+/* Add these new styles for the frequency details */
+.frequency-details {
+  margin-top: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-family: "Nippo-Light";
+  font-size: 16px;
+  font-weight: 378;
+  line-height: 205%;
+  letter-spacing: 0%;
+  color: white;
+  margin-right: 10px;
+}
+
+.value {
+  font-family: "Nippo-Light";
+  font-size: 16px;
+  font-weight: 378;
+  line-height: 205%;
+  letter-spacing: 0%;
+  color: white;
+}
+
+.sound-frequency-container{
+  background-color: #000 !important;
+}
+
+.content-container-title {
+    background-color: black !important; /* Remove original background */
+    color: #181818;
+    font: 378 32px 'Nippo-Regular', sans-serif;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 3%;
+    line-height: 100%;
+    position: relative; /* Ensure positioning context */
+    top: 10px;
+    width: fit-content;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 1; /* Keep text above the new background */
+    padding-block: 12px;
+}
+
+.content-container-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 3px; /* Inset from left */
+  right: 2px; /* Inset from right */
+  bottom: 0;
+  background-color: #fff;
+  z-index: -1; /* Place behind text */
+}
+
+/* Add a pseudo-element to extend the underline */
+.content-container-title::after {
+    content: '';
+    position: absolute;
+    left: 3px; /* Match the left inset of the background */
+    bottom: 0;
+    width: 111%;
+    height: 12px;
+    background-color: #ffffff;
+    z-index: -1;
+}
+
+/* Styles specific to Sound Frequency */
+.sound-frequency-section .content-container {
+  width: fit-content;
+  margin-left: 69px;
+  color: black;
+  background-color: black;
+  padding: 0.5px 0; /* Reduced vertical padding */
+  box-sizing: border-box;
+  font: 400 28px 'Nippo-Light', sans-serif;
+}
+
+.sound-frequency-section .wave-container {
+  border: 1px solid white;
+  margin-top: 20px;
+  margin-left: 69px;
+  width: calc(66%); /* Adjust width to account for margins */
+  height: 120px; /* Set desired height */
+  background-color: black;
 }

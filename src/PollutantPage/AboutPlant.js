@@ -1,9 +1,14 @@
 import React from "react";
 import "./AboutPlant.css";
+import PeepholeEffect from "./PeepHoleImage";
 
-export const AboutPlant = () => {
+export const AboutPlant = ({ sections }) => {
+  // Split the description into About Plant and Wetland Status sections
+  const plantName = sections[0].plant_name;
+  const aboutPlantText = sections[0].description.split('_')[1];
+  const wetlandStatusText = sections[0].status.split('_')[1];
+
   return (
-    // <PeepholeEffect />
     <div className="inverted-section">
       <div className="main-container inverted">
         <div className="flex-row-f">
@@ -12,9 +17,9 @@ export const AboutPlant = () => {
             alt="Pollutant" 
             className="image inverted-text"
           />
-          <div className="about-pollutant">
+          <div id="about-plant-section" className="about-pollutant">
             <span className="about" style={{color: 'black'}}>About </span>
-            <span style={{color: 'black'}}>Plant </span>
+            <span style={{color: 'black'}}>{plantName} </span>
           </div>
         </div>
         <div className="flex-row-a">
@@ -24,38 +29,26 @@ export const AboutPlant = () => {
             className="vector-image inverted-image"
           />
         </div>
-        <span className="lorem-ipsum-dolor inverted-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida
-          imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu
-          neque. Etiam rhoncus erat non quam vehicula, sed maximus magna
-          tincidunt. Sed condimentum sollicitudin nibh, nec mattis quam. Ut eu
-          volutpat nisi, quis varius risus. Integer rutrum eros ac turpis euismod,
-          in tincidunt risus dapibus. Etiam eget turpis massa. Fusce rutrum sit
-          amet magna sit amet aliquam. Donec sit amet cursus erat, sit amet
-          sagittis nunc. Nullam mattis risus nisi, non interdum elit congue in.
-          Donec vitae ligula elit. Morbi nec luctus elit, eu feugiat turpis. Sed
-          porttitor luctus ornare. Suspendisse condimentum fermentum convallis.
+        <span
+          className="lorem-ipsum-dolor inverted-text"
+          style={{ whiteSpace: 'pre-line', width: '100%' }}
+        >
+          {aboutPlantText}
         </span>
-        <div className="inverted-graphic-container">
-          <div className='imageContainer2'></div>
-          <img 
-            src="n19.svg" 
-            alt="graphic element"
-            className="inverted-graphic-element"
+        <div className="inverted-graphic-container" style={{ height: "auto" }}>
+          <PeepholeEffect 
+            imageUrl="n19.svg" 
+            width="100%" 
+            height="auto" 
           />
         </div>
-          <div className="wetland-status-container">
-            <div className="rectangle-inv" />
-            <div className="wetland-black-bar" />
-            <div className="wetland-status-text">Wetland Status</div>
-          </div>
-          <span className="lorem-ipsum-dolor inverted-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          congue mollis mauris eget faucibus. Donec fermentum nibh ut gravida
-          imperdiet. Donec diam velit, bibendum in volutpat quis, ullamcorper eu
-          neque. Etiam rhoncus erat non quam vehicula, sed maximus magna
-          tincidunt. Sed condimentum sollicitudin nibh, nec mattis quam. Ut eu
+        <div className="wetland-status-container">
+          <div className="rectangle-inv" />
+          <div className="wetland-black-bar" />
+          <div className="wetland-status-text">Wetland Status</div>
+        </div>
+        <span className="lorem-ipsum-dolor inverted-text">
+          {wetlandStatusText}
         </span>
       </div>
     </div>

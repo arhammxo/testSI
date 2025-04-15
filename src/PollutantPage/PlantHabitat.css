@@ -29,50 +29,57 @@
     height: 43px;
     left: 0;
     position: absolute;
-    top: 0;
-    width: 743px;
-}
-
-.plant-habitat-container .header-overlap-wrapper {
-    height: 43px;
-    width: 745px;
+    width: fit-content;
 }
 
 .plant-habitat-container .header-content {
-    height: 43px;
+    background-color: #fff;
+    height: 57px;
     position: relative;
-    width: 743px;
-}
-
-.plant-habitat-container .header-background {
-    background-color: #000000;
-    height: 43px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 173px;
-}
-
-.plant-habitat-container .header-underline {
-    background-color: #000000;
-    height: 9px;
-    left: 155px;
-    position: absolute;
-    top: 34px;
-    width: 91px;
+    width: fit-content;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: visible;
+    left: -5px;
 }
 
 .plant-habitat-container .habitat-title {
-    color: #ffffff;
-    font-family: "Nippo-Regular", Helvetica;
-    font-size: 28px;
+    background-color: transparent !important; /* Remove original background */
+    color: #fff;
+    font: 378 32px 'Nippo-Regular', sans-serif;
     font-weight: 400;
     left: 0;
-    letter-spacing: 0.84px;
-    line-height: normal;
+    letter-spacing: 3%;
+    line-height: 100%;
+    position: relative; /* Ensure positioning context */
+    top: 10px;
+    width: fit-content;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 1; /* Keep text above the new background */
+    padding-block: 12px;
+}
+
+.plant-habitat-container .habitat-title::before {
+    content: '';
     position: absolute;
-    top: 3px;
-    width: 743px;
+    top: 0;
+    left: 3px !important; /* Inset from left */
+    right: 2px !important; /* Inset from right */
+    bottom: 0;
+    background-color: #000;
+    z-index: -1; /* Place behind text */
+}
+
+.plant-habitat-container .habitat-title::after {
+    content: '';
+    position: absolute;
+    left: 3px; /* Match the left inset of the background */
+    bottom: 0;
+    width: 111%;
+    height: 12px;
+    background-color: #000;
+    z-index: -1;
 }
 
 .plant-habitat-container .decorative-line-1 {
@@ -86,15 +93,15 @@
 .plant-habitat-container .section-content {
     color: #ffffff;
     font-family: "ClashGrotesk-Light", Helvetica;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     left: 1px;
-    letter-spacing: 0.32px;
-    line-height: 32.8px;
+    letter-spacing: 0;
+    line-height: 205%;
     mix-blend-mode: difference;
     position: absolute;
-    top: 53px;
-    width: 446px;
+    top: 30px;
+    width: 60%;
 }
 
 .plant-habitat-container .section-title {
@@ -111,42 +118,42 @@
 
 .plant-habitat-container .habitat-section-1 {
     height: auto;
-    left: 22%;
+    left: 16%;
     position: absolute;
-    top: 8%;
-    width: 61%;
+    top: 9%;
+    width: 100%;
 }
 
 .plant-habitat-container .habitat-section-2 {
     height: auto;
-    left: 22%;
+    left: 16%;
     position: absolute;
-    top: 47%;
-    width: 61%;
+    top: 51%;
+    width: 100%;
 }
 
 .plant-habitat-container .habitat-section-3 {
     height: auto;
-    left: 22%;
+    left: 16%;
     position: absolute;
-    top: 87%;
-    width: 61%;
+    top: 72%;
+    width: 100%;
 }
 
 .plant-habitat-container .habitat-section-4 {
     height: auto;
-    left: 22%;
+    left: 16%;
     position: absolute;
-    top: 27%;
-    width: 61%;
+    top: 30%;
+    width: 100%;
 }
 
 .plant-habitat-container .habitat-section-5 {
     height: auto;
-    left: 22%;
+    left: 16%;
     position: absolute;
-    top: 67%;
-    width: 61%;
+    top: 71%;
+    width: 100%;
 }
 
 .plant-habitat-container .vector-2 {
@@ -215,7 +222,7 @@
 
 .plant-habitat-container .p {
     color: #ffffff;
-    font-family: "Clash Grotesk-Regular", Helvetica;
+    font-family: "ClashGrotesk-Regular", Helvetica;
     font-size: 16px;
     font-weight: 400;
     left: 1px;
