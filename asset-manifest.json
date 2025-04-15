@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/testSI/static/css/main.c025d07e.css",
+    "main.css": "/testSI/static/css/main.278dd32e.css",
     "main.js": "/testSI/static/js/main.b452aba7.js",
     "static/js/488.abb8c839.chunk.js": "/testSI/static/js/488.abb8c839.chunk.js",
     "static/media/ClashGrotesk-Variable.ttf": "/testSI/static/media/ClashGrotesk-Variable.6eccb344b604e67e2145.ttf",
@@ -52,12 +52,12 @@
     "static/media/vector-164.svg": "/testSI/static/media/vector-164.3aee49e5807d275e4b4000f2d992d766.svg",
     "static/media/vector-165.svg": "/testSI/static/media/vector-165.982dad435b3815c545c65bc82df13234.svg",
     "static/media/vector-167.svg": "/testSI/static/media/vector-167.211a53825ad168e081f2903ef9d8e93c.svg",
-    "main.c025d07e.css.map": "/testSI/static/css/main.c025d07e.css.map",
+    "main.278dd32e.css.map": "/testSI/static/css/main.278dd32e.css.map",
     "main.b452aba7.js.map": "/testSI/static/js/main.b452aba7.js.map",
     "488.abb8c839.chunk.js.map": "/testSI/static/js/488.abb8c839.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c025d07e.css",
+    "static/css/main.278dd32e.css",
     "static/js/main.b452aba7.js"
   ]
 }
