@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/testSI/static/css/main.291df4a4.css",
-    "main.js": "/testSI/static/js/main.2bee904b.js",
+    "main.css": "/testSI/static/css/main.fe6af2ee.css",
+    "main.js": "/testSI/static/js/main.d5bc05d5.js",
     "static/js/488.abb8c839.chunk.js": "/testSI/static/js/488.abb8c839.chunk.js",
     "static/media/ClashGrotesk-Variable.ttf": "/testSI/static/media/ClashGrotesk-Variable.6eccb344b604e67e2145.ttf",
     "static/media/Nippo-Variable.ttf": "/testSI/static/media/Nippo-Variable.c7296075d1c250b265e1.ttf",
@@ -52,12 +52,12 @@
     "static/media/vector-164.svg": "/testSI/static/media/vector-164.3aee49e5807d275e4b4000f2d992d766.svg",
     "static/media/vector-165.svg": "/testSI/static/media/vector-165.982dad435b3815c545c65bc82df13234.svg",
     "static/media/vector-167.svg": "/testSI/static/media/vector-167.211a53825ad168e081f2903ef9d8e93c.svg",
-    "main.291df4a4.css.map": "/testSI/static/css/main.291df4a4.css.map",
-    "main.2bee904b.js.map": "/testSI/static/js/main.2bee904b.js.map",
+    "main.fe6af2ee.css.map": "/testSI/static/css/main.fe6af2ee.css.map",
+    "main.d5bc05d5.js.map": "/testSI/static/js/main.d5bc05d5.js.map",
     "488.abb8c839.chunk.js.map": "/testSI/static/js/488.abb8c839.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.291df4a4.css",
-    "static/js/main.2bee904b.js"
+    "static/css/main.fe6af2ee.css",
+    "static/js/main.d5bc05d5.js"
   ]
 }
