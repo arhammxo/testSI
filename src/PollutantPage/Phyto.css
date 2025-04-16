@@ -16,6 +16,7 @@
       align-items: left;     /* Center items horizontally */
       gap: 0;                  /* Remove flex gap */
       margin-left: 10%;
+      padding-top: 50px;
   }
   
   .bottom-section4 .box > .box {  /* Target species boxes */
@@ -67,7 +68,6 @@
       font-family: "Nippo-Light", Helvetica;
       font-size: 26px;
       font-weight: 300;
-      left: 0;
       letter-spacing: 0.78px;
       line-height: normal;
       position: absolute;
@@ -194,8 +194,10 @@
   }
   
   .bottom-section4 .box .div {
-    left: 0;
+    /* left: 29px; */
     top: 110px;
+    width: 130px;
+    text-align: right;
   }
   
   .bottom-section4 .box .div-wrapper {
@@ -208,8 +210,9 @@
   }
   
   .bottom-section4 .box .time-period-container-group2 .div {
-      left: calc(45%);  /* Match parent element positioning */
+      left: 90px;  /* Match parent element positioning */
       width: calc(100%);
+      text-align: right;
   }
   
   .bottom-section4 .box .time-period-container-group2 .div-wrapper {
@@ -240,15 +243,16 @@
   .bottom-section4 .box .overlap-group .medium-label {
       top: 30px;
       left: auto;
-      right: -15px;
+      right: -15px; 
       text-align: left;
   }
   
   .bottom-section4 .box .overlap-group .soil-label {
       top: 60px;
       left: auto;
-      right: -5px;
+      right: -60px;
       text-align: left;
+      width: 100px;
   }
   
   /* For right-aligned box */
