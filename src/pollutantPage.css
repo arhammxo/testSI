@@ -45,7 +45,6 @@ body, html {
   justify-content: center;
   align-items: center;
   z-index: 10;
-  top: -15em; /* Ensures the slider is above the panels */
 }
 
 .slider-circle {
@@ -153,6 +152,7 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 10px;
+  z-index: 100000;
 }
 
 .sound-icon {
@@ -378,7 +378,7 @@ body.right-panel-active .hamburger-line {
 
 .nav-item:not(.expanded) .nav-item-header:hover,
 .nav-item:not(.expanded) .nav-item-header:focus {
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
   outline: none;
 }
 
@@ -443,12 +443,30 @@ body.right-panel-active .hamburger-line {
 
 .nav-underline {
   width: 97%;
-  margin-left: 38px;
+  margin-left: 47px;
   transition: all 0.3s ease;
 }
 
 .expanded-underline {
   width: 100%;
+  margin-left: 0;
+}
+
+/* Target by position in the list - more reliable than attributes */
+.nav-links .nav-item:nth-child(1) .expanded-underline {
+  margin-left: 0px;
+}
+
+.nav-links .nav-item:nth-child(2) .expanded-underline {
+  margin-left: 42px;
+}
+
+.nav-links .nav-item:nth-child(3) .expanded-underline {
+  margin-left: -170px;
+}
+
+.nav-links .nav-item:nth-child(4) .expanded-underline {
+  margin-left: 20px;
 }
 
 /* Expanded content styling */
@@ -1428,6 +1446,14 @@ img {
   padding-block: 100px !important;
   margin-top: 100px;
   padding-bottom: 200px;
+}
+
+.optional-text-container {
+  margin-top: 2em; /* Creates approximately a 2-line gap */
+  padding: 10px;
+  width: 100%;
+  line-height: 1.5;
+  color: white;
 }
 
 .content-container-title {
