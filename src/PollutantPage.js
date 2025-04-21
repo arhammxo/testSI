@@ -38,6 +38,7 @@ const PollutantPage = (categorizedData) => {
   const sliderContainerRef = useRef(null);
   const sliderBarRef = useRef(null); // Add this new ref
   const lastPositionRef = useRef(sliderPosition); // Add ref to track latest position
+  const navBarRef = useRef(null); // New ref for implementing fallback sticky behavior
 
   // Pollutant categorization by waste type
   const pollutantCategories = {
@@ -335,12 +336,20 @@ const PollutantPage = (categorizedData) => {
     document.documentElement.style.setProperty('--slider-position', `${clampedPosition}%`);
     setSliderPosition(clampedPosition);
 
-    // Toggle visibility and other classes based on dominant panel
-    // Ensures navbar and other styles react correctly to the final snapped position
-    document.body.classList.toggle('right-panel-active', clampedPosition < 3); // Snap target 2 is < 3
-    document.body.classList.toggle('white-panel-active', clampedPosition < 50); // White active only if strictly LESS than 50
-    document.body.classList.toggle('black-panel-active', clampedPosition >= 50); // Black active if GREATER than or EQUAL to 50
-    document.body.classList.toggle('sound-panel-active', clampedPosition < 98); // Snap targets 2, 50 are < 98
+    // Handle panel classes more explicitly to ensure sound button color works correctly
+    if (clampedPosition < 50) {
+      // White panel is active
+      document.body.classList.add('white-panel-active');
+      document.body.classList.remove('black-panel-active');
+    } else {
+      // Black panel is active
+      document.body.classList.add('black-panel-active');
+      document.body.classList.remove('white-panel-active');
+    }
+
+    // Other class toggles remain the same
+    document.body.classList.toggle('right-panel-active', clampedPosition < 3);
+    document.body.classList.toggle('sound-panel-active', clampedPosition < 98);
 
     // Calculate rotation based on slider position
     const newRotation = (clampedPosition / 100) * 360;
@@ -383,7 +392,7 @@ const PollutantPage = (categorizedData) => {
     const thresholdRight = 75; // Midway between 50 and 98
     const snapLeft = 1;
     const snapCenter = 50;
-    const snapRight = 99;
+    const snapRight = 99; // Keep the original 99% snap point
     let snapTarget;
 
     if (currentPosition <= thresholdLeft) {
@@ -395,10 +404,8 @@ const PollutantPage = (categorizedData) => {
     }
     // --- End Snap Logic ---
 
-    // Update to the snapped position using the refactored function
-    // The CSS transition will handle the smooth animation
+    // Update to the snapped position using the original function
     updateSliderPosition(snapTarget);
-    // Optional: Re-enable transitions if they were disabled in handleMouseDown
   };
 
   // Function to update container height based on panel heights
@@ -764,70 +771,68 @@ useEffect(() => {
     }, 50);
   };
 
-  // Add this new effect after the other useEffect blocks but before the return statement
-  useEffect(() => {
-    const handleResize = () => {
-      console.log("Window resize detected");
-      
-      // Immediate fix: Directly set slider-bar height to match window
-      if (sliderBarRef.current) {
-        // Get the container height first
-        const container = sliderContainerRef.current;
-        const containerHeight = container ? 
-          `${container.offsetHeight}px` : 
-          `${window.innerHeight}px`;
-        
-        // Apply the height directly
-        sliderBarRef.current.style.height = containerHeight;
-        console.log(`Direct resize: set slider-bar to ${containerHeight}`);
-      }
-      
-      // Still call the full update for React state
-      updateContainerHeight();
-    };
-    
-    // Attach resize listener
-    window.addEventListener('resize', handleResize);
-    
-    // Initial setup
-    handleResize();
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [leftPanelLoaded, rightPanelLoaded]); // Re-setup when panels load
-
-  // Add this new effect after the other useEffect blocks but before the return statement
-  useEffect(() => {
-    if (!sliderBarRef.current) return;
-    
-    console.log("Setting up height debugging...");
-    
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === 'style') {
-          const height = sliderBarRef.current.style.height;
-          console.log(`Detected slider-bar height change: ${height}`);
-        }
-      });
-    });
-    
-    observer.observe(sliderBarRef.current, { 
-      attributes: true,
-      attributeFilter: ['style'] 
-    });
-    
-    return () => observer.disconnect();
-  }, [sliderBarRef.current]);
-
-  // Add this new effect after the other useEffect blocks but before the return statement
+  // Updated useEffect for CSS-based overflow handling AND sound button color
   useEffect(() => {
     const styleEl = document.createElement('style');
     styleEl.textContent = `
+      /* Main container must hide horizontal overflow */
+      body, html, #root {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+      }
+      
+      /* Ensure the slider container clips its contents */
+      .slider-container {
+        overflow: hidden !important; /* Use overflow hidden on the container */
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative !important;
+      }
+      
+      /* Special handling for the slider bar */
       .slider-bar {
-        top: 0 !important;
-        bottom: 0 !important;
-        height: 100% !important;
+        /* Allow internal content to overflow the bar itself */
+        overflow: visible; 
+        /* Use CSS variable for positioning */
+        left: var(--slider-position, 50%); 
+        /* Adjust clip-path slightly to better contain the image */
+        clip-path: inset(0 -40px 0 -40px); /* Allow space for the image */
+      }
+      
+      /* When slider is at far right edge (position approaches 100%) */
+      /* Adjust clipping more aggressively */
+      /* Note: Direct style selection [style*="..."] can be brittle. */
+      /* A class-based approach triggered by sliderPosition might be more robust */
+      /* For now, relying on container overflow and slight image adjustment */
+      .slider-bar[style*="left: 99%"] .slider-image-container {
+         /* transform: translateX(-10px); Might still be needed */
+      }
+
+      /* --- Sound Button Color Overrides --- */
+
+      /* Default sound icon color for black panel (left side) */
+      .sound-icon span {
+        background-color: white; /* Default to white */
+        transition: background-color 0.3s ease; /* Add transition */
+      }
+      
+      /* When in white panel (right side), always show black icons */
+      body.white-panel-active .sound-icon span {
+        background-color: black !important; 
+      }
+      
+      /* Ensure menu state takes precedence regardless of panel */
+      /* Assuming .nav-menu.open is added to body or a high-level container */
+      /* If .nav-menu is separate, target might need adjustment */
+      body.nav-menu-open .sound-icon span, /* Example if class is on body */
+      .nav-menu.open ~ .sound-button .sound-icon span /* Example if button is sibling */ {
+        background-color: white !important;
+      }
+      
+      /* Ensure sound button itself is visible */
+      .sound-button {
+         z-index: 1000; /* Make sure it's above panels */
       }
     `;
     document.head.appendChild(styleEl);
@@ -837,15 +842,96 @@ useEffect(() => {
         styleEl.parentNode.removeChild(styleEl);
       }
     };
-  }, []);
+  }, []); // Empty dependency array, runs once on mount
+
+  // Add this effect after your other useEffects
+  useEffect(() => {
+    // Skip on mobile
+    if (isMobile) return;
+
+    const navBar = navBarRef.current;
+    const navBarContainer = navBar?.parentElement;
+    
+    if (!navBar || !navBarContainer) return;
+    
+    // Check if native sticky is working by checking position after scroll
+    // We'll use this as a backup in case CSS sticky fails
+    const checkStickySupport = () => {
+      // If the element is out of view, getBoundingClientRect might not work right
+      // So we'll use a more reliable check based on offsetTop
+      const containerRect = navBarContainer.getBoundingClientRect();
+      const navbarTop = navBar.getBoundingClientRect().top;
+      
+      // If navbar is not sticking when it should be...
+      if (containerRect.top < 0 && navbarTop !== 20) {
+        // Native sticky isn't working, apply manual positioning
+        console.log("Sticky positioning not working, applying fallback...");
+        
+        // Enable fallback mode
+        enableFallbackMode();
+      } else {
+        // Native sticky is working fine
+        disableFallbackMode();
+      }
+    };
+    
+    const enableFallbackMode = () => {
+      // Don't re-apply if already in fallback mode
+      if (navBar.classList.contains('using-fallback')) return;
+      
+      navBar.classList.add('using-fallback');
+      
+      // Apply fixed positioning
+      navBar.style.position = 'fixed';
+      navBar.style.top = '20px';
+      navBar.style.width = `${navBarContainer.offsetWidth}px`;
+      
+      // Add placeholder to prevent layout jump
+      const placeholder = document.createElement('div');
+      placeholder.className = 'nav-placeholder';
+      placeholder.style.height = `${navBar.offsetHeight}px`;
+      placeholder.style.width = `${navBar.offsetWidth}px`;
+      navBarContainer.appendChild(placeholder);
+    };
+    
+    const disableFallbackMode = () => {
+      if (!navBar.classList.contains('using-fallback')) return;
+      
+      navBar.classList.remove('using-fallback');
+      
+      // Restore normal positioning
+      navBar.style.position = '';
+      navBar.style.top = '';
+      navBar.style.width = '';
+      
+      // Remove placeholder
+      const placeholder = navBarContainer.querySelector('.nav-placeholder');
+      if (placeholder) {
+        navBarContainer.removeChild(placeholder);
+      }
+    };
+    
+    // Update positioning on scroll and resize
+    window.addEventListener('scroll', checkStickySupport);
+    window.addEventListener('resize', checkStickySupport);
+    
+    // Initial check
+    setTimeout(checkStickySupport, 100);
+    
+    return () => {
+      window.removeEventListener('scroll', checkStickySupport);
+      window.removeEventListener('resize', checkStickySupport);
+    };
+  }, [isMobile]);
 
   return (
     <>
-          <SoundToggle 
-            padNumber={leftpanelcontent[0].pollutantNumber}
-            sliderPosition={sliderPosition}
-            isInCombinedSection={false} // Will be updated through scroll detection
-          />
+      <SoundToggle 
+        padNumber={leftpanelcontent[0].pollutantNumber}
+        sliderPosition={sliderPosition}
+        isInCombinedSection={false} // Will be updated through scroll detection
+        panelMode={sliderPosition < 50 ? 'white' : 'black'} // Add panelMode prop
+      />
       <div 
         id="slider-container" 
         className="slider-container"
@@ -862,15 +948,17 @@ useEffect(() => {
           ref={sliderBarRef}
           className="slider-bar"
           style={{ 
-            left: `${sliderPosition}%`,
+            // Use CSS variable for left position (set in .slider-bar rule)
             height: containerHeight,
             minHeight: '100%',
             position: 'absolute',
             top: 0
+            // overflow: 'visible' removed - handled by CSS rules now
           }}
           onMouseDown={handleMouseDown}
         >
-          <div style={{ position: 'relative', left: '-4px' }}>
+          {/* Added container for image */}
+          <div className="slider-image-container" style={{ position: 'relative', left: '-4px' }}>
             <img
               src="slider.png"
               alt="Slider"
@@ -880,41 +968,88 @@ useEffect(() => {
         </div>
       </div>
       <div className="combined-section">
-        <div className="nav-bar">
-          {isMobile && (
-            <div className="mobile-menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-              ☰
+        <div className="nav-bar-container">
+          <div className="nav-bar" ref={navBarRef}>
+            {isMobile && (
+              <div className="mobile-menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+                ☰
+              </div>
+            )}
+            <div className={`nav-items-container ${isMobile ? 'mobile' : ''} ${isMobile && menuOpen ? 'mobile-active' : ''}`}>
+              <div className={`text-wrapper`}
+                   onClick={() => handleNavClick('about-pollutant')}>
+                <span>{leftpanelcontent[0].pollutantName}</span>
+              </div>
+
+              <div className={`div`}
+                   onClick={() => handleNavClick('plant-name')}>
+                <span>{rightpanelcontent[0].plantNameSplit}</span>
+              </div>
+
+              <div className={`text-wrapper-2`}
+                   onClick={() => handleNavClick('sound-frequency')}>
+                <span>Sound frequency</span>
+              </div>
+
+              <div className={`text-wrapper-3`}
+                   onClick={() => handleNavClick('common-names')}>
+                <span>Common names of {rightpanelcontent[0].plantNameSplit}</span>
+              </div>
+
+              <div className={`text-wrapper-4`}
+                   onClick={() => handleNavClick('plant-habitat')}>
+                <span>{rightpanelcontent[0].plantNameSplit}'s Habitat</span>
+              </div>
+
+              <div className={`text-wrapper-5`}
+                   onClick={() => handleNavClick('origin')}>
+                <span>Origin and Geographical Distribution</span>
+              </div>
+
+              <p className={`p`}
+                 onClick={() => handleNavClick('phyto-capacity')}>
+                <span>Phytoremediation capacity of {rightpanelcontent[0].plantNameSplit}</span>
+              </p>
+
+              <div className={`text-wrapper-6`}
+                   onClick={() => handleNavClick('uses-of-plant')}>
+                <span>Uses of {rightpanelcontent[0].plantNameSplit}</span>
+              </div>
+
+              <div className={`text-wrapper-7`}
+                   onClick={() => handleNavClick('references')}>
+                <span>Bibliography</span>
+              </div>
+
+              <div className={`text-wrapper-8`}
+                   onClick={() => handleNavClick('effect-on-health')}>
+                <span>Effect on health</span>
+              </div>
+
+              <div className={`text-wrapper-9`}
+                   onClick={() => handleNavClick('case-study')}>
+                <span>Case study</span>
+              </div>
+
+              <p className={`text-wrapper-10`}
+                 onClick={() => handleNavClick('phytoremediation')}>
+                <span>Phytoremediation of {leftpanelcontent[0].pollutantName}</span>
+              </p>
             </div>
-          )}
-          <div className={`nav-items-container ${isMobile ? 'mobile' : ''}`}>
-            <div className="text-wrapper" onClick={() => handleNavClick('about-pollutant')}>{leftpanelcontent[0].pollutantName}</div>
-            <div className="div" onClick={() => handleNavClick('plant-name')}>{rightpanelcontent[0].plantNameSplit}</div>
-            <div className="text-wrapper-2" onClick={() => handleNavClick('sound-frequency')}>Sound frequency</div>
-            <div className="text-wrapper-3" onClick={() => handleNavClick('common-names')}>Common names of {rightpanelcontent[0].plantNameSplit}</div>
-            <div className="text-wrapper-4" onClick={() => handleNavClick('plant-habitat')}>{rightpanelcontent[0].plantNameSplit}'s Habitat</div>
-            <div className="text-wrapper-5" onClick={() => handleNavClick('origin')}>Origin and Geographical Distribution</div>
-            <p className="p" onClick={() => handleNavClick('phyto-capacity')}>Phytoremediation capacity of {rightpanelcontent[0].plantNameSplit}</p>
-            <div className="text-wrapper-6" onClick={() => handleNavClick('uses-of-plant')}>Uses of {rightpanelcontent[0].plantNameSplit}</div>
-            <div className="text-wrapper-7" onClick={() => handleNavClick('references')}>Bibliography</div>
-            <div className="text-wrapper-8" onClick={() => handleNavClick('effect-on-health')}>Effect on health</div>
-            <div className="text-wrapper-9" onClick={() => handleNavClick('case-study')}>Case study</div>
-            <p className="text-wrapper-10" onClick={() => handleNavClick('phytoremediation')}>
-              Phytoremediation of {leftpanelcontent[0].pollutantName}
-            </p>
-          </div>
-          <div className="overlap-group">
-            <div className={`ellipse ${activeSection === 'about-pollutant' ? 'active' : ''}`} />
-            <div className={`ellipse-2 ${activeSection === 'sound-frequency' ? 'active' : ''}`} />
-            <div className={`ellipse-3 ${activeSection === 'effect-on-health' ? 'active' : ''}`} />
-            <div className={`ellipse-4 ${activeSection === 'case-study' ? 'active' : ''}`} />
-            <div className={`ellipse-5 ${activeSection === 'phytoremediation' ? 'active' : ''}`} />
-            <div className={`ellipse-6 ${activeSection === 'plant-name' ? 'active' : ''}`} />
-            <div className={`ellipse-7 ${activeSection === 'common-names' ? 'active' : ''}`} />
-            <div className={`ellipse-8 ${activeSection === 'plant-habitat' ? 'active' : ''}`} />
-            <div className={`ellipse-9 ${activeSection === 'origin' ? 'active' : ''}`} />
-            <div className={`ellipse-10 ${activeSection === 'phyto-capacity' ? 'active' : ''}`} />
-            <div className={`ellipse-11 ${activeSection === 'uses-of-plant' ? 'active' : ''}`} />
-            <div className={`ellipse-12 ${activeSection === 'references' ? 'active' : ''}`} />
+            <div className="overlap-group">
+              <div className={`ellipse ${activeSection === 'about-pollutant' ? 'active' : ''}`} />
+              <div className={`ellipse-2 ${activeSection === 'sound-frequency' ? 'active' : ''}`} />
+              <div className={`ellipse-3 ${activeSection === 'effect-on-health' ? 'active' : ''}`} />
+              <div className={`ellipse-4 ${activeSection === 'case-study' ? 'active' : ''}`} />
+              <div className={`ellipse-5 ${activeSection === 'phytoremediation' ? 'active' : ''}`} />
+              <div className={`ellipse-6 ${activeSection === 'plant-name' ? 'active' : ''}`} />
+              <div className={`ellipse-7 ${activeSection === 'common-names' ? 'active' : ''}`} />
+              <div className={`ellipse-8 ${activeSection === 'plant-habitat' ? 'active' : ''}`} />
+              <div className={`ellipse-9 ${activeSection === 'origin' ? 'active' : ''}`} />
+              <div className={`ellipse-10 ${activeSection === 'phyto-capacity' ? 'active' : ''}`} />
+              <div className={`ellipse-11 ${activeSection === 'uses-of-plant' ? 'active' : ''}`} />
+              <div className={`ellipse-12 ${activeSection === 'references' ? 'active' : ''}`} />
+            </div>
           </div>
         </div>
         
