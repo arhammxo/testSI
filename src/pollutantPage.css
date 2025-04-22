@@ -612,6 +612,7 @@ body.right-panel-active .hamburger-line {
   min-height: 100vh;
   background-color: #000;
   gap: 0;
+  height: fit-content;
   /* REMOVE overflow: initial/visible/hidden */
 }
 
@@ -1205,39 +1206,47 @@ body.white-panel-active .nav-bar::-webkit-scrollbar-thumb {
   z-index: 2;
 }
 
+.bottom-section5 {
+  background-color: white;
+  color: black;
+  min-height: 100vh;
+  padding: 30px 69px 155px 69px;
+}
+
+
 .bottom-section6 {
   background-color: white;
   color: black;
   min-height: 100vh;
-  padding: 95px 69px;
+  padding: 30px 69px 155px 69px;
 }
 
 .bottom-section7 {
   background-color: white;
   color: black;
   min-height: 100vh;
-  padding: 95px 69px;
+  padding: 30px 69px 155px 69px;
 }
 
 .bottom-section8 {
   background-color: white;
   color: black;
   min-height: 100vh;
-  padding: 95px 69px;
+  padding: 30px 69px 155px 69px;
 }
 
 .bottom-section9 {
   background-color: white;
   color: black;
   min-height: 100vh;
-  padding: 95px 69px;
+  padding: 30px 69px 155px 69px;
 }
 
 .bottom-section10 {
   background-color: white;
   color: black;
   min-height: 100vh;
-  padding: 95px 69px;
+  padding: 30px 69px 95px 69px;
 }
 
 /* Ensure all sections take full viewport height */
@@ -1264,8 +1273,8 @@ body.white-panel-active .nav-bar::-webkit-scrollbar-thumb {
   position: relative; /* Keep relative positioning */
   padding-left: 0;
   /* width: 60%; REMOVED - flex: 1 handles width now */
-  height: auto;
-  min-height: 100vh; /* Ensure it takes at least full height */
+  height: fit-content;
+  min-height: 1200px; /* Ensure it takes at least full height */
 }
 
 .bottom-section7{
@@ -1584,9 +1593,8 @@ img {
 }
 
 .sound-frequency-section {
-  padding-block: 100px !important;
-  margin-top: 100px;
-  padding-bottom: 200px;
+  padding-block: 200px !important;
+  height: 900px;
 }
 
 .optional-text-container {
